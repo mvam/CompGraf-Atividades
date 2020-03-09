@@ -13,13 +13,17 @@ function init() {
 
 	var camera = new THREE.OrthographicCamera( -1.0, 1.0, 1.0, -1.0, -1.0, 1.0 );
 	scene.add( camera );
-
+	
+	var axis = new THREE.AxesHelper( 2.0 );
+	scene.add(axis);
+	
 	var triangleGeometry = new THREE.Geometry(); 
 	
 	var numVertices = 250;
 	var raio = 0.8;
+	var constCor = 0.5;
 	
-	triangleGeometry.vertices.push(new THREE.Vector3( 0.0,  0.0, 0.0)); 
+	//triangleGeometry.vertices.push(new THREE.Vector3( 0.0,  0.0, 0.0)); 
 	
 	for (i = 0 ; i < 2*Math.PI ; i+= (2*Math.PI)/numVertices) {
 		var x = raio * Math.cos(i);
@@ -28,17 +32,11 @@ function init() {
 		triangleGeometry.vertices.push(new THREE.Vector3( x,  y, 0.0)); 
 		}
 
-	for (i = 0 ; i <= numVertices-1 ; i++) {
-		triangleGeometry.faces.push(new THREE.Face3(0, i, i+1)); 
-		triangleGeometry.faces[i].vertexColors[0] = new THREE.Color( 1.0, 1.0, 1.0); 
-		triangleGeometry.faces[i].vertexColors[1] = new THREE.Color( 0.0, Math.cos(i/numVertices), Math.sin(i/numVertices)); 
-		triangleGeometry.faces[i].vertexColors[2] = new THREE.Color( 0.0, Math.cos((i+1)/numVertices), Math.sin((i+1)/numVertices));
+	for (i = 0 ; i <= numVertices-2 ; i++) {
+		triangleGeometry.faces.push(new THREE.Face3(i, i+1, i)); 
 		}
 		
-	triangleGeometry.faces.push(new THREE.Face3(0, numVertices, 1)); 
-	triangleGeometry.faces[numVertices].vertexColors[0] = new THREE.Color( 1.0, 1.0, 1.0); 
-	triangleGeometry.faces[numVertices].vertexColors[1] = new THREE.Color( 0.0, Math.cos(1), Math.sin(1)); 
-	triangleGeometry.faces[numVertices].vertexColors[2] = new THREE.Color( 0.0, Math.cos(1/numVertices), 0.8*Math.sin(1/numVertices));
+	triangleGeometry.faces.push(new THREE.Face3(0, numVertices-1, 1)); 
 
 	var triangleMaterial = new THREE.MeshBasicMaterial({ 
 		color:0xffffff, 

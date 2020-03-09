@@ -14,20 +14,17 @@ function init() {
 	var camera = new THREE.OrthographicCamera( -1.0, 1.0, 1.0, -1.0, -1.0, 1.0 );
 	scene.add( camera );
 	
-	var axis = new THREE.AxesHelper( 2.0 );
+	var axis = new THREE.AxesHelper( 4.0 );
 	scene.add(axis);
 	
 	var triangleGeometry = new THREE.Geometry(); 
 	
 	var numVertices = 250;
-	var raio = 0.8;
-	var constCor = 0.5;
-	
-	//triangleGeometry.vertices.push(new THREE.Vector3( 0.0,  0.0, 0.0)); 
+	var size = 0.3;
 	
 	for (i = 0 ; i < 2*Math.PI ; i+= (2*Math.PI)/numVertices) {
-		var x = raio * Math.cos(i);
-		var y = raio * Math.sin(i);
+		var x = size*(Math.cos(i) + 0.5 + 0.5*Math.cos(2*i));
+		var y = size*(Math.sin(i) + 0.5*Math.sin(2*i));
 	
 		triangleGeometry.vertices.push(new THREE.Vector3( x,  y, 0.0)); 
 		}
