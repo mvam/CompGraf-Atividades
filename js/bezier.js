@@ -14,7 +14,7 @@ function init() {
 	var camera = new THREE.OrthographicCamera( -10.0, 10.0, 10.0, -10.0, -10.0, 10.0 );
 	scene.add( camera );
 	
-	var axis = new THREE.AxesHelper( 4.0 );
+	var axis = new THREE.AxesHelper( 10.0 );
 	scene.add(axis);
 	
 	var bezierGeometry = new THREE.Geometry();
@@ -24,11 +24,11 @@ function init() {
 	var periodicidade = 1.0/numVertices;
 
 	//grau de bazier. limitado pelo tamanho do vetos de pontos de controle
-	var grau = 7;
+	var grau = 18;
 
 	// control points
-	var xb = [0.0, 0.3, 2.6, 4.5, 6.0, 7.2, 8.2, 8.5];
-	var yb = [0.0, 1.7, 3.8, 4.7, 4.6, 4.1, 3.2, 1.1];
+	var xb = [0.0, 0.3, 2.6, 4.5, 6.0, 7.2, 8.2, 8.5,  8.0,  7.5,  6.9,  6.0,  5.5,  3.0,  2.0,  1.5, 1.0, 1.9, 4.0];
+	var yb = [0.0, 1.7, 3.8, 4.7, 4.6, 4.1, 3.2, 1.1, -1.4, -2.4, -3.5, -4.2, -4.5, -4.0, -2.5, -1.0, 0.0, 1.3, 2.0];
 
 	for(i = 0; i <= grau; i++){
 		controlGeometry.vertices.push(new THREE.Vector3( xb[i],  yb[i], 0.0));
