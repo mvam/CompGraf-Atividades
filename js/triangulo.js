@@ -14,28 +14,22 @@ function init() {
 
 	var axis = new THREE.AxesHelper( 0.5 );
 	scene.add(axis);
-	
-	var triangleGeometry = new THREE.Geometry(); 
-	
-	triangleGeometry.vertices.push(new THREE.Vector3( 0.0,  0.25, 0.0)); 	
-	triangleGeometry.vertices.push(new THREE.Vector3( 0.2165,  -0.125, 0.0)); 
-	triangleGeometry.vertices.push(new THREE.Vector3( -0.2165,  -0.125, 0.0)); 
-	
-	triangleGeometry.faces.push(new THREE.Face3(0, 1, 2)); 
-		
-	var triangleMaterial = new THREE.MeshBasicMaterial({ 
-		color:0xffffff, 
-		vertexColors:THREE.VertexColors,
-		side:THREE.DoubleSide,
-		wireframe:true
-		}); 
-	
-	var triangleMesh = new THREE.Mesh(triangleGeometry, triangleMaterial); 
 
-	scene.add( triangleMesh );	
-		
+	var triangleGeometry = new THREE.Geometry();
+
+	triangleGeometry.vertices.push(new THREE.Vector3( 0.0,  0.25, 0.0));
+	triangleGeometry.vertices.push(new THREE.Vector3( 0.2165,  -0.125, 0.0));
+	triangleGeometry.vertices.push(new THREE.Vector3( -0.2165,  -0.125, 0.0));
+	triangleGeometry.vertices.push(triangleGeometry.vertices[0]);
+
+	var triangleMaterial = new THREE.MeshBasicMaterial({
+		color:0xffffff
+		});
+
+	var triangle = new THREE.Line(triangleGeometry, triangleMaterial);
+
+	scene.add( triangle );	
+
 	renderer.clear();
 	renderer.render(scene, camera);
 };
-
-

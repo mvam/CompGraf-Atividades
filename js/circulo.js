@@ -13,44 +13,35 @@ function init() {
 
 	var camera = new THREE.OrthographicCamera( -1.0, 1.0, 1.0, -1.0, -1.0, 1.0 );
 	scene.add( camera );
-	
+
 	var axis = new THREE.AxesHelper( 2.0 );
 	scene.add(axis);
-	
-	var triangleGeometry = new THREE.Geometry(); 
-	
+
+	var circuloGeometry = new THREE.Geometry();
+
 	var numVertices = 250;
 	var raio = 0.8;
 	var constCor = 0.5;
-	
-	//triangleGeometry.vertices.push(new THREE.Vector3( 0.0,  0.0, 0.0)); 
-	
+
+	//triangleGeometry.vertices.push(new THREE.Vector3( 0.0,  0.0, 0.0));
+
 	for (i = 0 ; i < 2*Math.PI ; i+= (2*Math.PI)/numVertices) {
 		var x = raio * Math.cos(i);
 		var y = raio * Math.sin(i);
-	
-		triangleGeometry.vertices.push(new THREE.Vector3( x,  y, 0.0)); 
+
+		circuloGeometry.vertices.push(new THREE.Vector3( x,  y, 0.0));
 		}
 
-	for (i = 0 ; i <= numVertices-2 ; i++) {
-		triangleGeometry.faces.push(new THREE.Face3(i, i+1, i)); 
-		}
-		
-	triangleGeometry.faces.push(new THREE.Face3(0, numVertices-1, 1)); 
+	circuloGeometry.vertices.push(circuloGeometry.vertices[0]);
 
-	var triangleMaterial = new THREE.MeshBasicMaterial({ 
-		color:0xffffff, 
-		vertexColors:THREE.VertexColors,
-		side:THREE.DoubleSide,
-		wireframe:true
-		}); 
-	
-	var triangleMesh = new THREE.Mesh(triangleGeometry, triangleMaterial); 
+	var circuloMaterial = new THREE.MeshBasicMaterial({
+		color:0xffffff
+		});
 
-	scene.add( triangleMesh );	
-		
+	var circulo = new THREE.Line(circuloGeometry, circuloMaterial);
+
+	scene.add( circulo );
+
 	renderer.clear();
 	renderer.render(scene, camera);
 };
-
-

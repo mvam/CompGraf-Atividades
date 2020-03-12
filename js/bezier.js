@@ -13,13 +13,13 @@ function init() {
 
 	var camera = new THREE.OrthographicCamera( -10.0, 10.0, 10.0, -10.0, -10.0, 10.0 );
 	scene.add( camera );
-	
+
 	var axis = new THREE.AxesHelper( 10.0 );
 	scene.add(axis);
-	
+
 	var bezierGeometry = new THREE.Geometry();
-	var controlGeometry = new THREE.Geometry(); 
-	
+	var controlGeometry = new THREE.Geometry();
+
 	var numVertices = 50;
 	var periodicidade = 1.0/numVertices;
 
@@ -33,11 +33,7 @@ function init() {
 	for(i = 0; i <= grau; i++){
 		controlGeometry.vertices.push(new THREE.Vector3( xb[i],  yb[i], 0.0));
 	}
-	
-	for(i = 0; i <= grau-1; i++){
-		controlGeometry.faces.push(new THREE.Face3(i, i+1, i)); 
-	}	
-	
+
 	//bezier
 	for (t = 0 ; t < 1.0 ; t+= periodicidade) {
 		var bx = 0;
@@ -46,44 +42,27 @@ function init() {
 			bx += pin(grau, i, t)*xb[i];
 			by += pin(grau, i, t)*yb[i];
 		}
-	
-		bezierGeometry.vertices.push(new THREE.Vector3( bx,  by, 0.0)); 
+
+		bezierGeometry.vertices.push(new THREE.Vector3( bx,  by, 0.0));
 		}
 
-	for (i = 0 ; i < numVertices-1 ; i++) {
-		bezierGeometry.faces.push(new THREE.Face3(i, i+1, i)); 
-		}
-		
-	//bezierGeometry.faces.push(new THREE.Face3(0, numVertices-1, 1)); 
+	var bezierMaterial = new THREE.MeshBasicMaterial({color:0xfff000});
 
-	var bezierMaterial = new THREE.MeshBasicMaterial({ 
-		color:0xfff000, 
-		vertexColors:THREE.VertexColors,
-		side:THREE.DoubleSide,
-		wireframe:true
-		}); 
-	
-	var controlMaterial = new THREE.MeshBasicMaterial({ 
-		color:0x00fff0, 
-		vertexColors:THREE.VertexColors,
-		side:THREE.DoubleSide,
-		wireframe:true
-		}); 
-	
-	var bezierMesh = new THREE.Mesh(bezierGeometry, bezierMaterial); 
-	var controlMesh = new THREE.Mesh(controlGeometry, controlMaterial); 
+	var controlMaterial = new THREE.MeshBasicMaterial({color:0x00fff0});
 
+		var bezierline = new THREE.Line( bezierGeometry, bezierMaterial);
+		var controlline = new THREE.Line( controlGeometry, controlMaterial );
 
-	scene.add( bezierMesh );
-	scene.add( controlMesh );	
-		
-	renderer.clear();
-	renderer.render(scene, camera);
+		scene.add( bezierline );
+		scene.add( controlline );
+
+		renderer.clear();
+		renderer.render(scene, camera);
 };
 
 function binomial(n, k) {
-     if ((typeof n !== 'number') || (typeof k !== 'number')) 
-  return false; 
+     if ((typeof n !== 'number') || (typeof k !== 'number'))
+  return false;
     var coeff = 1;
     for (var x = n-k+1; x <= n; x++) coeff *= x;
     for (x = 1; x <= k; x++) coeff /= x;
@@ -93,5 +72,3 @@ function binomial(n, k) {
 function pin (n, i, t) {
 	return binomial(n, i)*Math.pow((1-t), n-i)*Math.pow(t, i);
 };
-
-

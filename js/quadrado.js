@@ -14,30 +14,23 @@ function init() {
 
 	var axis = new THREE.AxesHelper( 0.5 );
 	scene.add(axis);
-	
-	var triangleGeometry = new THREE.Geometry(); 
-	
-	triangleGeometry.vertices.push(new THREE.Vector3( 0.25,  0.25, 0.0)); 	
-	triangleGeometry.vertices.push(new THREE.Vector3( -0.25,  0.25, 0.0)); 
-	triangleGeometry.vertices.push(new THREE.Vector3( -0.25,  -0.25, 0.0)); 
-	triangleGeometry.vertices.push(new THREE.Vector3( 0.25,  -0.25, 0.0)); 
-	
-	triangleGeometry.faces.push(new THREE.Face3(0, 1, 2)); 
-	triangleGeometry.faces.push(new THREE.Face3(0, 3, 2)); 
-		
-	var triangleMaterial = new THREE.MeshBasicMaterial({ 
-		color:0xffffff, 
-		vertexColors:THREE.VertexColors,
-		side:THREE.DoubleSide,
-		wireframe:true
-		}); 
-	
-	var triangleMesh = new THREE.Mesh(triangleGeometry, triangleMaterial); 
 
-	scene.add( triangleMesh );	
-		
+	var quadradoGeometry = new THREE.Geometry();
+
+	quadradoGeometry.vertices.push(new THREE.Vector3( 0.25,  0.25, 0.0));
+	quadradoGeometry.vertices.push(new THREE.Vector3( -0.25,  0.25, 0.0));
+	quadradoGeometry.vertices.push(new THREE.Vector3( -0.25,  -0.25, 0.0));
+	quadradoGeometry.vertices.push(new THREE.Vector3( 0.25,  -0.25, 0.0));
+	quadradoGeometry.vertices.push(quadradoGeometry.vertices[0]);
+
+	var quadradoMaterial = new THREE.MeshBasicMaterial({
+		color:0xffffff
+		});
+
+	var quadrado = new THREE.Line(quadradoGeometry, quadradoMaterial);
+
+	scene.add( quadrado );
+
 	renderer.clear();
 	renderer.render(scene, camera);
 };
-
-
