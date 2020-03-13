@@ -9,14 +9,14 @@ function init() {
 	var maxDim = Math.min(window.innerWidth, window.innerHeight)*0.7;
 
 	renderer.setClearColor(new THREE.Color(0.0, 0.0, 0.0));
-	renderer.setSize(maxDim, maxDim);
+	renderer.setSize(700, 500);
 
-	var camera = new THREE.OrthographicCamera( -1.0, 1.0, 1.0, -1.0, -1.0, 1.0 );
+	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	scene.add( camera );
 
 	// Global Axis
-	var globalAxis = new THREE.AxesHelper( 1.0 );
-	scene.add( globalAxis );
+	//var globalAxis = new THREE.AxesHelper( 1.0 );
+	//scene.add( globalAxis );
 
 	var espiralGeom = new THREE.Geometry();
 
@@ -24,13 +24,15 @@ function init() {
 	var raio = 0.999;
 	var espir = numVertices*3;
 	var numvoltas = 15; 
+	var z = 0.0;
 
 	for (i = 0 ; i < 2*Math.PI*numvoltas ; i+= (2*Math.PI)/numVertices) {
 		let x = raio * Math.cos(i);
 		let y = raio * Math.sin(i);
-		raio -= raio/espir;
+		//raio -= raio/espir;
+		z += 0.001;
 
-		espiralGeom.vertices.push(new THREE.Vector3( x,  y, 0.0));
+		espiralGeom.vertices.push(new THREE.Vector3( x, y, z));
 	}
 
 	for (i = 0 ; i < espiralGeom.vertices.length ; i++) {
@@ -52,8 +54,18 @@ function init() {
 
 	document.getElementById("WebGL-output").appendChild(renderer.domElement);
 
-	renderer.clear();
-	renderer.render(scene, camera);
-};
+	//renderer.clear();
+	//renderer.render(scene, camera);
+ 	function animate() { 
+	requestAnimationFrame( animate ); 
+	
+	if(camera.position.z < 20.0){
+		camera.position.z += 0.01; 
+	} else {
+		camera.position.z = 0.5;	
+	}
 
+	renderer.render( scene, camera ); 
+	}; animate();
+};
 
