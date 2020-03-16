@@ -20,18 +20,17 @@ function init() {
 
 	var circleGeom = new THREE.Geometry();
 
-	var numVertices = 1000;
+	var numVertices = 30;
 	var raio = 0.99;
 
 	// circle.vertices.push(new THREE.Vector3( 0.0, 0.0, 0.0));
 
-	for (i = 0 ; i < 10*Math.PI ; i+= (2*Math.PI)/numVertices) {
+	for (i = 0 ; i < 2*Math.PI ; i+= (2*Math.PI)/numVertices) {
 		var x = raio * Math.cos(i);
 		var y = raio * Math.sin(i);
 		raio -= raio/numVertices;
 
 		circleGeom.vertices.push(new THREE.Vector3( x,  y, 0.0));
-		circleGeom.vertices[i].color(new THREE.color(0.0, 0.0, i/numVertices));
 		}
 
 	var circleMaterial = new THREE.MeshBasicMaterial({ color:0xffffff });

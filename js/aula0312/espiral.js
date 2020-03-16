@@ -20,12 +20,14 @@ function init() {
 
 	var espiralGeom = new THREE.Geometry();
 
-	var numVertices = 1000;
-	var raio = 0.999;
-	var espir = numVertices*3;
-	var numvoltas = 15; 
+	var numVertices = 500.0;
+	var raio = 0.99;
+	var espir = numVertices*1.5;
+	var numvoltas = 2.5;
+	var passo = (2.0*Math.PI)/numVertices;
+	var anguloMax = 2.0*Math.PI*numvoltas;
 
-	for (i = 0 ; i < 2*Math.PI*numvoltas ; i+= (2*Math.PI)/numVertices) {
+	for (i = 0 ; i < anguloMax ; i+= passo) {
 		let x = raio * Math.cos(i);
 		let y = raio * Math.sin(i);
 		raio -= raio/espir;
@@ -42,8 +44,7 @@ function init() {
 	}
 
 	var espiralMaterial = new THREE.MeshBasicMaterial({ 
-		vertexColors:THREE.VertexColors,
-		wireframe:true
+		vertexColors:THREE.VertexColors
 		}); 
 
 	var espiral = new THREE.Line(espiralGeom, espiralMaterial);
